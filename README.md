@@ -1,2 +1,2 @@
 # MobileShmup
-Shoot 'em up mobile game for school course
+Repository for Programming Mobile Games-course's shoot 'em up mobile game
