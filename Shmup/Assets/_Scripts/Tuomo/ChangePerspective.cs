@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ChangePerspective : MonoBehaviour
 {
-    public static ChangePerspective cp;
+    [SerializeField]
+    private PlayerController player;
 
     private Vector3 verticalPos;
     private Quaternion verticalRot;
@@ -12,12 +13,8 @@ public class ChangePerspective : MonoBehaviour
     private Vector3 horizontalPos;
     private Quaternion horizontalRot;
 
-    public bool toggleHorizontal;
-
     void Start()
     {
-        cp = this;
-
         verticalPos = Camera.main.transform.position;
         verticalRot = Camera.main.transform.rotation;
 
@@ -27,12 +24,7 @@ public class ChangePerspective : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            toggleHorizontal = !toggleHorizontal;
-        }
-
-        if (toggleHorizontal)
+        if (player.isHorizontal)
         {
             Camera.main.transform.position = horizontalPos;
             Camera.main.transform.rotation = horizontalRot;
