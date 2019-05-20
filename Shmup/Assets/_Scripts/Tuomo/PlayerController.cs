@@ -7,22 +7,18 @@ public class PlayerController : MonoBehaviour
     public bool isHorizontal;
 
     private Transform player;
-
     private Vector3 pos;
-
     private float posX, posY;
 
     void Start()
     {
         player = gameObject.transform;
-
         posY = player.position.y;
     }
 
     void Update()
     {
         pos = new Vector3(posX, posY, player.position.z);
-
         player.position = pos;
 
         if (Input.GetKeyUp(KeyCode.Space))
