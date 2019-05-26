@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool isHorizontal;
-
+    public ChangePerspective perspective;
     public float CollisionRadius;
+    public bool isHorizontal;
 
     private Transform player;
     private Vector3 pos;
     private float posX, posY;
 
     public Transform EnemyContainer;
+
     void Start()
     {
         player = gameObject.transform;
@@ -24,71 +26,31 @@ public class PlayerController : MonoBehaviour
         pos = new Vector3(posX, posY, player.position.z);
         player.position = pos;
 
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            isHorizontal = !isHorizontal;
-        }
-
-        GetControls();
+        //isHorizontal = perspective.isHorizontal;
     }
 
-    void GetControls()
+    public void MoveLeft()
     {
-        if (!isHorizontal)
+        if (player.position.x >= -13f)
         {
-            if (player.position.x >= -24f)
+            posX -= 0.25f;
+
+            if (player.position.x < -13f)
             {
-                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-                {
-                    posX -= 0.25f;
-                }
-
-                if (player.position.x < -24f)
-                {
-                    posX = -24f;
-                }
-            }
-
-            if (player.position.x <= 24f)
-            {
-                if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-                {
-                    posX += 0.25f;
-                }
-
-                if (player.position.x > 24f)
-                {
-                    posX = 24f;
-                }
+                posX = -13f;
             }
         }
+    }
 
-        if (isHorizontal)
+    public void MoveRight()
+    {
+        if (player.position.x <= 13f)
         {
-            if (player.position.y <= 38f)
+            posX += 0.25f;
+
+            if (player.position.x > 13f)
             {
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-                {
-                    posY += 0.25f;
-                }
-
-                if (player.position.y > 38f)
-                {
-                    posY = 38f;
-                }
-            }
-
-            if (player.position.y >= 12f)
-            {
-                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-                {
-                    posY -= 0.25f;
-                }
-
-                if (player.position.y < 12f)
-                {
-                    posY = 12f;
-                }
+                posX = 13f;
             }
         }
     }
@@ -102,6 +64,4 @@ public class PlayerController : MonoBehaviour
     {
         return CollisionRadius;
     }
-
-    
 }

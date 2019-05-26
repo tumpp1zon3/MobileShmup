@@ -4,36 +4,34 @@ using UnityEngine;
 
 public class ChangePerspective : MonoBehaviour
 {
+    public bool isHorizontal;
+
     [SerializeField]
-    private PlayerController player;
+    private Camera vertical;
 
-    private Vector3 verticalPos;
-    private Quaternion verticalRot;
-
-    private Vector3 horizontalPos;
-    private Quaternion horizontalRot;
+    [SerializeField]
+    private Camera horizontal;
 
     void Start()
     {
-        verticalPos = Camera.main.transform.position;
-        verticalRot = Camera.main.transform.rotation;
-
-        horizontalPos = new Vector3(48.5f, 25, 5);
-        horizontalRot = Quaternion.Euler(0, -90, 0);
+        //vertical.enabled = true;
+        //horizontal.enabled = false;
     }
 
     void Update()
     {
-        if (player.isHorizontal)
+        if (Input.deviceOrientation == DeviceOrientation.Portrait || Input.deviceOrientation == DeviceOrientation.PortraitUpsideDown)
         {
-            Camera.main.transform.position = horizontalPos;
-            Camera.main.transform.rotation = horizontalRot;
+            //isHorizontal = false;
+            //horizontal.enabled = false;
+            //vertical.enabled = true;
         }
-
-        else
+        /*
+        if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft || Input.deviceOrientation == DeviceOrientation.LandscapeRight)
         {
-            Camera.main.transform.position = verticalPos;
-            Camera.main.transform.rotation = verticalRot;
-        }
+            isHorizontal = true;
+            vertical.enabled = false;
+            horizontal.enabled = true;
+        }*/
     }
 }
