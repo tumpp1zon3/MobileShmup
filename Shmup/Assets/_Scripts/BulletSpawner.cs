@@ -31,6 +31,8 @@ public class BulletSpawner : MonoBehaviour
 
     //Direction of Bullets
     public Vector3 BulletDirection;
+    
+    public bool useTarget;
     //Bullet target
     public GameObject Target;
     //Deley in seconds before Bullet Changes direction to target (best for targeted Spread Shots)
@@ -41,6 +43,16 @@ public class BulletSpawner : MonoBehaviour
     //For Manual Start change true in editor and call StartShooting() or change false to Start Shooting 
     public bool ManualStart = false;
 
+    //Boolean for collision so bullets can not frindly fire enemies or player shoot itself
+    public bool IsPlayer = false;
+
+    private void Start()
+    {
+        if (useTarget)
+        {
+            Target = FindObjectOfType<PlayerController>().gameObject;
+        }
+    }
 
     void Update()
     {
@@ -69,7 +81,7 @@ public class BulletSpawner : MonoBehaviour
                         {
                             if(SpreadAmount != 1)
                             {
-                                Vector3 SpreadDirection = Quaternion.Euler(StartAngle + i * (SpreadAngle / (SpreadAmount-1)), 0, 0) * BulletDirection;
+                                Vector3 SpreadDirection = Quaternion.Euler(StartAngle + i * (SpreadAngle / (SpreadAmount-1)), StartAngle + i * (SpreadAngle / (SpreadAmount - 1)), 0) * BulletDirection;
                                 SpawnBullet(transform.position + (SpreadDirection * InrervalError), transform.rotation , SpreadDirection);
                             }
                             else
@@ -140,6 +152,7 @@ public class BulletSpawner : MonoBehaviour
             b.SetDirection(direction);
         }
         b.SetSpeed(BulletSpeed);
+        b.SetPlayer(IsPlayer);
     }
 
     public void StartShooting()

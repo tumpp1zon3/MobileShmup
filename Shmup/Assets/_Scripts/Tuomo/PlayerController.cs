@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     public bool isHorizontal;
 
+    public float CollisionRadius;
+
     private Transform player;
     private Vector3 pos;
     private float posX, posY;
 
+    public Transform EnemyContainer;
     void Start()
     {
         player = gameObject.transform;
@@ -89,4 +92,16 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    public Vector3 GetPos()
+    {
+        return pos;
+    }
+
+    public float GetRad()
+    {
+        return CollisionRadius;
+    }
+
+    
 }
