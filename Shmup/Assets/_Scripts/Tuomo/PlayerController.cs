@@ -26,14 +26,24 @@ public class PlayerController : MonoBehaviour
         pos = new Vector3(posX, posY, player.position.z);
         player.position = pos;
 
-        //isHorizontal = perspective.isHorizontal;
+        isHorizontal = perspective.isHorizontal;
+
+        if (isHorizontal)
+        {
+            posX = 0;
+        }
+
+        if (!isHorizontal)
+        {
+            posY = 26;
+        }
     }
 
     public void MoveLeft()
     {
         if (player.position.x >= -13f)
         {
-            posX -= 0.25f;
+            posX--;
 
             if (player.position.x < -13f)
             {
@@ -46,11 +56,37 @@ public class PlayerController : MonoBehaviour
     {
         if (player.position.x <= 13f)
         {
-            posX += 0.25f;
+            posX++;
 
             if (player.position.x > 13f)
             {
                 posX = 13f;
+            }
+        }
+    }
+
+    public void MoveUp()
+    {
+        if (player.position.y <= 55f)
+        {
+            posY++;
+
+            if (player.position.y > 55f)
+            {
+                posY = 55f;
+            }
+        }
+    }
+
+    public void MoveDown()
+    {
+        if (player.position.y >= 0)
+        {
+            posY--;
+
+            if (player.position.y < 0)
+            {
+                posY = 0;
             }
         }
     }

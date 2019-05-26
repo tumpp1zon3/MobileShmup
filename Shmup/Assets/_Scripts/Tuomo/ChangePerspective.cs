@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangePerspective : MonoBehaviour
 {
@@ -10,28 +11,58 @@ public class ChangePerspective : MonoBehaviour
     private Camera vertical;
 
     [SerializeField]
+    private Canvas verticalCanvas;
+
+    [SerializeField]
     private Camera horizontal;
+
+    [SerializeField]
+    private Canvas horizontalCanvas;
 
     void Start()
     {
-        //vertical.enabled = true;
-        //horizontal.enabled = false;
+        Camera.main.transform.position = vertical.transform.position;
+        Camera.main.transform.rotation = vertical.transform.rotation;
+
+        verticalCanvas.enabled = true;
+        horizontalCanvas.enabled = false;
+
+        Screen.autorotateToPortrait = true;
+        Screen.autorotateToLandscapeRight = true;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.orientation = ScreenOrientation.AutoRotation;
     }
 
     void Update()
     {
-        if (Input.deviceOrientation == DeviceOrientation.Portrait || Input.deviceOrientation == DeviceOrientation.PortraitUpsideDown)
+        if (Screen.orientation == ScreenOrientation.Portrait)
         {
-            //isHorizontal = false;
-            //horizontal.enabled = false;
-            //vertical.enabled = true;
+            ChangeToVertical();
         }
-        /*
-        if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft || Input.deviceOrientation == DeviceOrientation.LandscapeRight)
+
+        if (Screen.orientation == ScreenOrientation.LandscapeRight)
         {
-            isHorizontal = true;
-            vertical.enabled = false;
-            horizontal.enabled = true;
-        }*/
+            ChangeToHorizontal();
+        }
+    }
+
+    public void ChangeToVertical()
+    {
+        isHorizontal = false;
+        Camera.main.transform.position = vertical.transform.position;
+        Camera.main.transform.rotation = vertical.transform.rotation;
+        verticalCanvas.enabled = true;
+        horizontalCanvas.enabled = false;
+
+    }
+
+    public void ChangeToHorizontal()
+    {
+        isHorizontal = true;
+        Camera.main.transform.position = horizontal.transform.position;
+        Camera.main.transform.rotation = horizontal.transform.rotation;
+        horizontalCanvas.enabled = true;
+        verticalCanvas.enabled = false;
     }
 }
